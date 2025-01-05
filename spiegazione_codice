@@ -1,0 +1,59 @@
+import random  # Importa il modulo random per generare numeri casuali
+
+class Fighter:
+    def __init__(self, name, health, attack_power):
+        self.name = name  # Nome del combattente
+        self.health = health  # Salute del combattente
+        self.attack_power = attack_power  # Potenza d'attacco del combattente
+
+    def attack(self, opponent, attack_type):
+        # Metodo per attaccare un avversario
+        if attack_type == opponent.defense_type:
+            return 0  # Nessun danno se l'avversario si difende correttamente
+        else:
+            damage = random.randint(10, 20)  # Danno casuale tra 10 e 20
+            opponent.health -= damage  # Sottrai il danno dalla salute dell'avversario
+            return damage  # Restituisci il danno inflitto
+
+    def defend(self, defense_type):
+        # Metodo per impostare il tipo di difesa del combattente
+        self.defense_type = defense_type  # Tipo di difesa del combattente
+
+def fight(user_fighter, opponent_fighter, user_control):
+    # Funzione per gestire il combattimento tra due combattenti
+    if user_fighter.name == "Jon Jones" and opponent_fighter.name == "Dana White":
+        print(f"{user_fighter.name} and {opponent_fighter.name} decide to kiss instead of fighting!")
+        return True  # Se i combattenti sono Jon Jones e Dana White, il combattimento termina in un bacio tra i due
+
+    print(f"Fight between {user_fighter.name} and {opponent_fighter.name}!")  # Annuncia il combattimento
+    while user_fighter.health > 0 and opponent_fighter.health > 0:  # Continua finché entrambi i combattenti sono in vita
+        if user_control:  # Se l'utente controlla il combattente
+            # Turno dell'utente
+            attack_type = input(f"Choose your attack type (high/low/takedown): ").strip().lower()  # Chiedi all'utente di scegliere un attacco
+            if attack_type == "takedown":  # Se l'utente sceglie un takedown
+                if random.randint(1, 4) == 1:  # 25% di probabilità di fallire
+                    user_fighter.health -= 50  # Danno se il tentativo di takedown fallisce
+                    print("Takedown attempt failed! You lost 50 health.")
+                else:
+                    print("Takedown successful! The fight is now on the ground.")
+                    if random.randint(1, 2) == 1:  # 50% di probabilità di vincere a terra
+                        print("You won the fight on the ground!")
+                        return True  # L'utente vince
+                    else:
+                        print("You failed to win on the ground. The fight continues standing.")
+            else:
+                opponent_defense = random.choice(["high", "low"])  # L'avversario sceglie casualmente una difesa
+                opponent_fighter.defend(opponent_defense)  # Imposta la difesa dell'avversario
+                damage = user_fighter.attack(opponent_fighter, attack_type)  # Calcola il danno inflitto
+                print(f"{user_fighter.name} attacks {opponent_fighter.name} for {damage} damage. {opponent_fighter.name} defended {opponent_defense}. {opponent_fighter.name} health: {opponent_fighter.health}")
+                if opponent_fighter.health <= 0:  # Se l'avversario è stato messo KO
+                    print(f"{opponent_fighter.name} is knocked out! {user_fighter.name} wins!")
+                    return True  # L'utente vince
+
+            # Turno dell'avversario
+            user_defense = input(f"Choose your defense type (high/low): ").strip().lower()  # Chiedi all'utente di scegliere una difesa
+            user_fighter.defend(user_defense)  # Imposta la difesa dell'utente
+            attack_type = random.choice(["high", "low"])  # L'avversario sceglie casualmente un attacco
+            damage = opponent_fighter.attack(user_fighter, attack_type)  # Calcola il danno inflitto all'utente
+            print(f"{opponent_fighter.name} attacks {user_fighter.name} for {damage} damage. {opponent_fighter.name} attacked {attack_type}. {user_fighter.name} health: {user_fighter.health}")
+            if user_fighter.health
