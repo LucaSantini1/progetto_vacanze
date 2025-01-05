@@ -1,4 +1,3 @@
 # progetto_vacanze
 
-Un programma che simula incontri di mma basati su statistiche e probabilità a turni tra 2 lottatori.
-Tutto ciò verrà rappresentato graficamente con Tkinter come gui.
+A program that simulate mma fight on the terminal with an easter egg that it will be up to you to find out.![image](https://github.com/user-attachments/assets/e41b256a-523d-4826-8e2e-424cf2f942b5)
