@@ -44,7 +44,14 @@ def fight(user_fighter, opponent_fighter, user_control):
                 damage = user_fighter.attack(opponent_fighter, attack_type)
                 print(f"{user_fighter.name} attacks {opponent_fighter.name} for {damage} damage. {opponent_fighter.name} defended {opponent_defense}. {opponent_fighter.name} health: {opponent_fighter.health}")
                 if opponent_fighter.health <= 0:
-                    print(f"{opponent_fighter.name} is knocked out! {user_fighter.name} wins!")
+                    print(r"""
+ __  ______  __  __  _      _______  __                         
+ \ \/ / __ \/ / / / | | /| / /  _/ |/ /
+  \  / /_/ / /_/ /  | |/ |/ _/ //    / 
+  /_/\____/\____/   |__/|__/___/_/|_/  
+                                       
+                                                                                                                                      \$$
+    """)
                     return True
 
            
@@ -54,7 +61,15 @@ def fight(user_fighter, opponent_fighter, user_control):
             damage = opponent_fighter.attack(user_fighter, attack_type)
             print(f"{opponent_fighter.name} attacks {user_fighter.name} for {damage} damage. {opponent_fighter.name} attacked {attack_type}. {user_fighter.name} health: {user_fighter.health}")
             if user_fighter.health <= 0:
-                print(f"{user_fighter.name} is knocked out! {opponent_fighter.name} wins!")
+                print(r"""
+__  ______  __  __   __    ____  _____ ______
+\ \/ / __ \/ / / /  / /   / __ \/ ___// ____/
+ \  / / / / / / /  / /   / / / /\__ \/ __/   
+ / / /_/ / /_/ /  / /___/ /_/ /___/ / /___   
+/_/\____/\____/  /_____/\____//____/_____/   
+                                             
+                                                                                                                                   \$$
+    """)
                 return False
         else:
             
@@ -148,17 +163,20 @@ if __name__ == "__main__":
             continue
 
         mode = input("Do you want to play a single match or a tournament? (single/tournament): ").strip().lower()
+        
         if mode == "single":
             user_control = input("Do you want to control the fighter? (yes/no): ").strip().lower() == "yes"
             if user_control:
                 print("Available fighters: ", ", ".join(fighters.keys()))
                 user_fighter_name = input("Choose your fighter: ").strip().lower()
+                if user_fighter_name == "bruce lee":print("You have chosen the legendary Bruce Lee! Prepare for an epic fight!")
                 opponent_fighter_name = input("Choose your opponent: ").strip().lower()
                 user_fighter = fighters.get(user_fighter_name)
                 opponent_fighter = fighters.get(opponent_fighter_name)
             else:
                 user_fighter = random.choice(list(fighters.values()))
                 opponent_fighter = random.choice(list(fighters.values()))
+                
 
             if user_fighter and opponent_fighter:
                 if fight(user_fighter, opponent_fighter, user_control):

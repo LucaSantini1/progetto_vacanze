@@ -1,0 +1,27 @@
+@startuml
+
+!define RECTANGLE class
+
+RECTANGLE User {
+    +input()
+    +print()
+}
+
+RECTANGLE Fighter {
+    +name
+    +weight_class
+}
+
+RECTANGLE Fight {
+    +fight(user_fighter, opponent_fighter, user_control)
+}
+
+RECTANGLE Tournament {
+    +tournament(user_fighter, fighters)
+}
+
+User --> Fighter : chooses
+User --> Fight : initiates
+User --> Tournament : initiates
+
+@enduml
